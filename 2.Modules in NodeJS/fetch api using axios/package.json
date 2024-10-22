@@ -1,0 +1,15 @@
+{
+  "name": "first-server",
+  "version": "1.0.0",
+  "description": "my first server using nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Harshal Madgulkar",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "nodemon": "^3.1.7"
+  }
+}
