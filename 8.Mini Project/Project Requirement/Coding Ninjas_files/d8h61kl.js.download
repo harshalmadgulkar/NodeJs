@@ -1,0 +1,39 @@
+try { 
+	_weq["webengage.onReady"] = function () {
+  webengage.notification.onOpen(function (data) {
+    if (data.notificationId === "173060aca") {
+      var iframe = document.querySelector(
+        "#classroom-header"
+      );
+      iframe.style.marginTop = "43px";
+      var x = window.matchMedia("(max-width: 768px)");
+      if(x.matches){
+        var eleMobile = document.querySelector("#classroom-header");
+        eleMobile.style.marginTop="72px";
+      }
+    }
+  });
+
+  webengage.notification.onClose(function (data) {
+    if (data.notificationId === "173060aca") {
+      var iframe = document.querySelector(
+        "#classroom-header"
+      );
+      iframe.style.marginTop = "0px";
+      var x = window.matchMedia("(max-width: 768px)");
+      if(x.matches){
+        var eleMobile = document.querySelector("#classroom-header");
+        eleMobile.style.marginTop="0px";
+      }
+    }
+  });
+};
+
+
+ } catch(e) { 
+ 	if (e instanceof Error) { 
+		var data = e.stack || e.description;
+		data = (data.length > 900 ? data.substring(0, 900) : data);
+	 	webengage.eLog(null, 'error', data, 'cwc-error','cwc', 'd8h61kl');
+	 }
+ }

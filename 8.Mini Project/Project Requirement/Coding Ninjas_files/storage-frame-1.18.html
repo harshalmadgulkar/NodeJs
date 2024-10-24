@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!-- saved from url=(0112)https://z47b66064.webengage.co/storage-frame-1.18.htm?cdn=y&cbf=webengage-engagement-callback-frame&lc=~47b66064 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><meta http-equiv="x-ua-compatible" content="IE=Edge"><script>// Storage frame simply stores whatever data is given to it as localStorage[name] = value
+// or returns the data again as event.data.name, event.data.value pairs
+
+(function (window, document) {
+    // gzip flag
+    var isGzip = false;
+
+    // ** helper routines
+    function getParamValue (paramName) {
+        var paramValue = '';
+        var regex = new RegExp('[\\?&]' + paramName + '=([^&#]*)');
+        var qs = regex.exec(location.href);
+        if (qs !== null) {
+            paramValue = qs[1];
+        }
+
+        return paramValue;
+    }
+
+    function bind (element, event, listener) {
+        if (element.addEventListener) {
+            element.addEventListener(event, listener);
+        } else if (element.attachEvent) {
+            element.attachEvent('on' + event, listener);
+        }
+    }
+
+    function escapeForRegExp (text) {
+        return (text + '').replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+    }
+
+    function stringify (object) {
+        if (typeof(JSON) !== 'undefined' && typeof(JSON.stringify) === 'function') {
+            return JSON.stringify(object);
+        } else {
+            var type = typeof(object);
+
+            if (type !== 'undefined' && type !== 'function') {
+                if (type != 'object' || object === null) {
+                    // simple data type
+                    if (type == 'string') {
+                        object = object.replace(/[\\]/g, '\\\\')
+                            .replace(/[\"]/g, '\\\"')
+                            .replace(/[\/]/g, '\\/')
+                            .replace(/[\b]/g, '\\b')
+                            .replace(/[\f]/g, '\\f')
+                            .replace(/[\n]/g, '\\n')
+                            .replace(/[\r]/g, '\\r')
+                            .replace(/[\t]/g, '\\t');
+
+                        object = '"' + object + '"';
+                    }
+
+                    return String(object);
+                } else {
+                    var json, n, val;
+
+                    if (typeof(object.toJSON) === 'function') {
+                        return stringify(object.toJSON());
+                    } else if (object.constructor == Array) {
+                        json = [];
+
+                        for (n = 0; n < object.length; n++) {
+                            val = stringify(object[n]);
+                            json.push(typeof(val) === 'undefined' ? 'null' : val);
+                        }
+
+                        return '[' + String(json) + ']';
+
+                    } else {
+                        json = [];
+
+                        for (n in object) {
+                            if (object.hasOwnProperty(n)) {
+                                val = stringify(object[n]);
+                                if (typeof(val) !== 'undefined') {
+                                    json.push(stringify(n) + ':' + val);
+                                }
+                            }
+                        }
+
+                        return '{' + String(json) + '}';
+                    }
+                }
+            }
+        }
+    }
+
+    function detectLocalStorageSupport () {
+        try {
+            var _localStorageFlag = (typeof(Storage) !== 'undefined' && 'localStorage' in window && window.localStorage !== null);
+            if (_localStorageFlag) {
+                // for iOS tablet, even though it supports localStorage it throws QuotaExceedError
+                window.localStorage['_we_dm_ios_sup_f_'] = 'true';
+                window.localStorage.removeItem('_we_dm_ios_sup_f_');
+            }
+
+            return _localStorageFlag;
+        } catch (e) {
+            return false;
+        }
+    }
+
+
+    var CALLBACK_FRAME_NAME = getParamValue('cbf') || 'wkCBStorageFrame';
+
+    function postMessage (msg, name, value) {
+        if (window.parent.frames[CALLBACK_FRAME_NAME]) {
+            window.parent.frames[CALLBACK_FRAME_NAME].postMessage(stringify({
+                name  : name,
+                msg   : msg,
+                value : value
+            }), '*');
+        }
+    }
+
+
+    function init (vconfig) {
+
+        function isValidOrigin (origin) {
+            // checking domain validity
+
+            origin = origin.replace(/https?:\/\//, ''); // getting rid off the scheme
+            var flag = false;
+            var originHost = origin.split(":")[0];
+            var originPort = origin.split(":")[1];
+            var domains = [];
+            var regexps = [];
+            if (vconfig.sites === undefined || !vconfig.sites) {
+                vconfig.sites = {};
+                vconfig.sites[vconfig.domain] = 'DOMAIN';
+            }
+            for (var key in vconfig.sites) {
+                var _publisherDomain = key,
+                    _publisherDomainPort;
+                if (vconfig.sites[key] == 'DOMAIN') {
+                    domains[domains.length] = _publisherDomain;
+                    if (_publisherDomain.match(/^www\./i)) {
+                        _publisherDomain = _publisherDomain.substring(4, _publisherDomain.length);
+                    }
+                    if (_publisherDomain.match(/\:[\d]*$/)) {
+                        _publisherDomainPort = _publisherDomain.substring(_publisherDomain.indexOf(':') + 1, _publisherDomain.length);
+                        _publisherDomain = _publisherDomain.substring(0, _publisherDomain.indexOf(':'));
+                    }
+                    if ((originHost.match(new RegExp(escapeForRegExp(_publisherDomain) + '$', 'gi')) && (!_publisherDomainPort || _publisherDomainPort == originPort))) {
+                        flag = true;
+                        break;
+                    }
+                } else if (vconfig.sites[key] == 'REGEXP') {
+                    var matcherExp = _publisherDomain;
+                    regexps[regexps.length] = _publisherDomain;
+                    if ((origin.match(matcherExp))) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+
+            return flag;
+        }
+
+
+        var readKeys = {};
+
+        bind(window, 'message', function (event) {
+            event = event || this.event;
+
+            if (isValidOrigin(event.origin)) {
+                var name = event.data.name;
+                var value = event.data.value;
+                var action = event.data.action;
+
+                switch (action) {
+                    case 'store':
+                        localStorage.setItem(name, value);
+                        // postMessage('update', name, localStorage[name]);
+                        break;
+
+                    case 'read':
+                        readKeys[name] = true;
+
+                        postMessage('new-data', name, localStorage[name]);
+                        break;
+
+                    case 'delete':
+                        localStorage.removeItem(name);
+                        break;
+                }
+            } else {
+                // TODO - send invalid request
+            }
+        });
+
+        // listen changes in localStorage values
+        bind(window, 'storage', function(event) {
+            if (readKeys.hasOwnProperty(event.key)) {
+                postMessage('update', event.key, event.newValue);
+            }
+        });
+
+
+        if (vconfig) {
+            postMessage('init', 'init', {
+                status: 'success',
+                webengage_fs_configurationMap: vconfig,
+                isGzip: isGzip
+            });
+        } else {
+            postMessage('init', 'init', {
+                status: 'failed'
+            });
+        }
+    }
+
+    var windowUnloading = false;
+
+    bind(window, 'beforeunload', function () {
+        windowUnloading = true;
+    });
+
+    bind(window, 'load', function () {
+
+        if (!detectLocalStorageSupport()) {
+            return init();
+        }
+
+        var vscript = document.createElement('script');
+        vscript.type = 'text/javascript';
+        vscript.charset = 'UTF-8';
+
+        var lc = getParamValue('lc');
+        let script = null
+        if (getParamValue('cdn') === 'y') {
+            script =`${location.protocol == 'http:' ? 'http:' : 'https:'}`+'//wsdk-files.webengage.com/webengage/' + lc + '/v4.js';
+        } else {
+            script = `${location.protocol == 'http:' ? 'http:' : 'https:'}`+'//s3.amazonaws.com/'
+                + (isGzip ? 'webengage-zfiles' : 'webengage-files')
+                + '/webengage/' + lc + '/v4.js?r=' + Math.floor((new Date()).getTime() / 60000);
+        }
+        if (getParamValue("proxyUrl")!==''){
+            vscript.src = `${getParamValue("proxyUrl")}?url=${encodeURIComponent(script)}`
+        }else{
+            vscript.src = script
+        }
+       
+
+        vscript.onload = function(event) {
+            vscript.onreadystatechange = vscript.onload = null;
+
+            init(webengage_fs_configurationMap);
+        };
+
+        vscript.onerror = function (event) {
+            if (!windowUnloading) {
+                var im = new Image();
+
+                im.src = '//c.webengage.com/e.jpg?type=error'
+                    + '&event=' + encodeURIComponent('[sf] v4 loading failed')
+                    + '&category=' + lc
+                    + '&data=' + encodeURIComponent('{"version" : "4.0", "text" : "Failed to load config ' + vscript.src + '" }')
+                    + '&ts=' + (new Date()).getTime();  
+            }
+
+            init();
+        };
+
+        vscript.onreadystatechange = function () {
+            if (vscript.readyState === 'loaded') {
+                vscript.onload && vscript.onload();
+            } else if (vscript.readyState === 'complete') {
+                setTimeout(function () {
+                    vscript.onload && vscript.onload();
+                }, 2000);
+            }
+        };
+
+        document.body.appendChild(vscript);
+    });
+
+})(window, document);</script></head><body marginwidth="0" marginheight="0"><script type="text/javascript" charset="UTF-8" src="./v4.js.download"></script></body></html>

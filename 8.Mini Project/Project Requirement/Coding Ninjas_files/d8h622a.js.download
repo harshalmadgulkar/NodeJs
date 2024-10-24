@@ -1,0 +1,117 @@
+try { 
+	webengage.survey.onComplete(function (data) {
+    if (data.surveyId === "7djkbfi") {
+      
+         var Name;
+         var email;
+         var phone;
+      var variable1;
+       var variable2 ;
+       var variable3 ;
+   
+
+        console.log(data);
+
+        for (var i = 0; i < data.questionResponses.length; i++) {
+            if (
+                Object.prototype.toString.call(
+                    data.questionResponses[i].value.values
+                ) == "[object Object]"
+            ) {
+                for (var keys in data.questionResponses[i].value.values) {
+                    if (keys == "Enter Your Name") {
+                        Name = data.questionResponses[i].value.values[keys];
+                    }
+                  
+                     if (keys == "Enter Your Phone Number") {
+                        phone = data.questionResponses[i].value.values[keys];
+                    }
+                  
+                    if (keys == "Enter Your Email Id") {
+                        email = data.questionResponses[i].value.values[keys];
+                    }
+                  
+                }
+            }
+            if (
+                Object.prototype.toString.call(
+                    data.questionResponses[i].value.values
+                ) == "[object Array]"
+            ) {
+                for (
+                    var j = 0; j < data.questionResponses[i].value.values.length; j++) {
+
+                    var item = data.questionResponses[i].value.values[j];
+                    if (data.questionResponses[i].questionId == "21m5bmh") {
+                        variable1 = item;
+                    }
+
+                    if (data.questionResponses[i].questionId == "24f0r4l") {
+                        variable2 = item;
+                    }
+
+                    if (data.questionResponses[i].questionId == "1f5299n") {
+                        variable3 = item;
+                    }
+
+                 
+
+                }
+            }
+        }
+    
+      
+      console.log("we_Name",Name);
+       console.log("we_email",email);
+       console.log("we_phone", phone);
+        console.log("variable1--->",variable1);
+        console.log("variable1--->",variable1);
+        console.log("variable3--->",variable3);
+     
+      
+     
+       
+ if (
+            webengage &&
+            webengage.state &&
+            typeof webengage.state.getForever === "function" &&
+            (webengage.state.getForever().cuid === null ||
+                webengage.state.getForever().cuid === undefined) &&
+            email !== null
+        ) {
+            webengage.user.login(email);
+            webengage.user.setAttribute({
+              
+             "we_first_name":Name,  
+                "we_phone": phone,
+                "we_email": email,
+                 "variable1": variable1,
+                "variable2": variable2,
+                "variable3": variable3
+             
+ 
+
+            });
+
+
+            webengage.track("survey_filled'", {
+             
+              "we_first_name":Name,
+             "we_phone": phone,
+                "we_email": email,
+                "variable1": variable1,
+                "variable2": variable2,
+                "variable3": variable3
+
+
+            });
+        }
+    }
+});
+ } catch(e) { 
+ 	if (e instanceof Error) { 
+		var data = e.stack || e.description;
+		data = (data.length > 900 ? data.substring(0, 900) : data);
+	 	webengage.eLog(null, 'error', data, 'cwc-error','cwc', 'd8h622a');
+	 }
+ }

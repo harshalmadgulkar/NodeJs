@@ -1,0 +1,28 @@
+try { 
+	webengage.onReady(function() {
+    var forever = webengage.state.getForever();
+    console.log('forever', forever);
+    if (forever.cuid) {
+        webengage.screen({
+            "userId": forever.cuid
+        });
+        console.log({
+            "userId": forever.cuid
+        });
+
+    } else {
+        webengage.screen({
+            "userId": forever.luid
+        });
+        console.log({
+            "userId": forever.luid
+        });
+    }
+});
+ } catch(e) { 
+ 	if (e instanceof Error) { 
+		var data = e.stack || e.description;
+		data = (data.length > 900 ? data.substring(0, 900) : data);
+	 	webengage.eLog(null, 'error', data, 'cwc-error','cwc', '8eda484');
+	 }
+ }

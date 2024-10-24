@@ -1,0 +1,100 @@
+try { 
+	/*
+
+Ticket id:- https://app.asana.com/0/home/1205991754603481/1206878265924933
+
+*/
+
+
+webengage.survey.onComplete(function (data) {
+                if (data.surveyId === "~5g1cnff") {
+
+                    var fName;
+                    var email;
+                    var phone;
+                    var Question_1;
+                    var Question_2;
+                    var Question_3;
+                    var Survey_id;
+
+                    console.log(data);
+                    for (var i = 0; i < data.questionResponses.length; i++) {
+                        if (
+                            Object.prototype.toString.call(
+                                data.questionResponses[i].value.values
+                            ) == "[object Object]"
+                        ) {
+                            for (var keys in data.questionResponses[i].value.values) {
+
+                                if (keys == "Enter Your Name") {
+                                    fName = data.questionResponses[i].value.values[keys];
+                                }
+                                if (keys == "Enter Your Email ID") {
+                                    email = data.questionResponses[i].value.values[keys];
+                                }
+                                if (keys == "Enter Your Phone Number") {
+                                    phone = data.questionResponses[i].value.values[keys];
+                                }
+                                if (keys == "Enter Your Phone Number") {
+                                    phone = data.questionResponses[i].value.values[keys];
+                                }
+                            }
+                        }
+                        if (Object.prototype.toString.call(data.questionResponses[i].value.values) == "[object Array]") {
+                            console.log("array");
+                            for (var j = 0; j < data.questionResponses[i].value.values.length; j++) {
+                                var item = data.questionResponses[i].value.values;
+                                if (data.questionResponses[i].questionId == "980itn") {
+                                    Question_1 = item.toString();
+                                }
+                                if (data.questionResponses[i].questionId == "2i98e33") {
+                                    Question_2 = item.toString();
+                                }
+                                if (data.questionResponses[i].questionId == "2l23tf7") {
+                                    Question_3 = item.toString();
+                                }
+                            }
+                        }
+                    }
+
+                    console.log("we_fName", fName);
+                    console.log("we_email", email);
+                    console.log("we_phone", phone);
+                    console.log("Question_1", Question_1.toString());
+                    console.log("Question_2", Question_2.toString());
+                    console.log("Question_3", Question_3.toString());
+
+                    if (webengage && webengage.state && typeof webengage.state.getForever === "function" &&
+                        (webengage.state.getForever().cuid === null || webengage.state.getForever().cuid === undefined) &&
+                        phone !== null
+                    ) {
+
+
+                        webengage.user.login(phone);
+                        webengage.user.setAttribute({
+                            "we_phone": phone,
+                            "we_email": email,
+                            "we_first_name": fName
+                        });
+
+                        webengage.user.setAttribute('we_whatsapp_opt_in', true);
+
+                        webengage.track('event_survey_submission', {
+                            "we_phone": phone,
+                            "we_email": email,
+                            "we_first_name": fName,
+                            "Question_1": Question_1,
+                            "Question_2": Question_2,
+                            "Question_3": Question_3,
+                            "Survey_id": '~5g1cnff'
+                        });
+                    }
+                }
+            });
+ } catch(e) { 
+ 	if (e instanceof Error) { 
+		var data = e.stack || e.description;
+		data = (data.length > 900 ? data.substring(0, 900) : data);
+	 	webengage.eLog(null, 'error', data, 'cwc-error','cwc', '~hg3c01');
+	 }
+ }
