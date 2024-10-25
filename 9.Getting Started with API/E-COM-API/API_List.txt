@@ -1,0 +1,6 @@
+ProductsController
+    getProducts - Done
+    addProducts - Done
+    getOneProduct - Done
+    rateProduct
+    filterProduct
