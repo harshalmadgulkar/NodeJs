@@ -1,0 +1,15 @@
+ProductsController
+    getProducts - Done
+    addProducts - Done
+    getOneProduct - Done
+    filterProduct - Done
+    rateProduct
+
+CartController
+    addItemsToCart
+    getItemsOfCart
+    removeItemsFromCart
+
+UserController
+    signup
+    signin
