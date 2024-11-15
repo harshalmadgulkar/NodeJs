@@ -1,0 +1,3 @@
+
+ Fri Nov 15 2024 15:37:51 GMT+0530 (India Standard Time) - /api/products - {}
+ Fri Nov 15 2024 15:38:19 GMT+0530 (India Standard Time) - /api/users/signup - {"name":"John Doe","email":"madgulkar@gmail.com","password":"pass","type":"Customer"}
