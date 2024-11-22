@@ -50,6 +50,7 @@ export default class ProductModel {
     const product = products.find((p) => p.id == productID);
     if (!product) {
       // console.log("product");
+      // user (devloper) defined error
       throw new Error("Product not found");
     }
 
