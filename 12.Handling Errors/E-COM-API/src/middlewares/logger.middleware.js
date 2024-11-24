@@ -17,6 +17,8 @@ const logger = winston.createLogger({
   defaultMeta: { service: "requet-logging" },
   transports: [new winston.transports.File({ filename: "logs.txt" })],
 });
+// named export logger
+export { logger };
 
 const loggerMiddleware = async (req, res, next) => {
   // 1. log request body

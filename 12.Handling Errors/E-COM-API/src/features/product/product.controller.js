@@ -18,17 +18,18 @@ export default class ProductController {
     res.status(201).send(createdRecord);
   }
 
-  rateProduct(req, res) {
-    const userID = req.query.userID;
-    const productID = req.query.productID;
-    const rating = req.query.rating;
-    // try {
-    ProductModel.rateProduct(userID, productID, rating);
-    // } catch (err) {
-    // console.log(err);
-    // return res.status(400).send(err.message);
-    // }
-    // return res.status(200).send("Rating has been added");
+  rateProduct(req, res, next) {
+    try {
+      const userID = req.query.userID;
+      const productID = req.query.productID;
+      const rating = req.query.ratingss;
+      console.log(rating);
+      ProductModel.rateProduct(userID, productID, rating);
+      return res.status(200).send("Rating has been added");
+    } catch (err) {
+      console.log("Passing error to middleware");
+      next(err);
+    }
   }
 
   getOneProduct(req, res) {

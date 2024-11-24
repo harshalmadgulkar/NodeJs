@@ -8,7 +8,10 @@ import userRouter from "./src/features/user/user.routes.js";
 import jwtAuth from "./src/middlewares/jwt.middleware.js";
 import cartRouter from "./src/features/cartItems/cartItems.routes.js";
 import apiDocs from "./swagger.json" assert { type: "json" };
-import loggerMiddleware from "./src/middlewares/logger.middleware.js";
+import loggerMiddleware, {
+  logger,
+} from "./src/middlewares/logger.middleware.js";
+import { ApplicationError } from "./src/error-handler/applicationError.js";
 
 // 2. Create Server
 const server = express();
@@ -52,7 +55,11 @@ server.get("/", (req, res) => {
 // Error handler middleware
 server.use((err, req, res, next) => {
   console.log(err);
-  res.status(503).send("Something went wrong, please try later");
+  if (err instanceof ApplicationError) {
+    res.status(err.code).send(err.message);
+  }
+  logger.info(err);
+  res.status(500).send("Something went wrong, please try later");
 });
 
 // 4. Middleware to handle 404 requests.
