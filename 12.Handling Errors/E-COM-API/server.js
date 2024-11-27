@@ -12,7 +12,7 @@ import loggerMiddleware, {
   logger,
 } from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/error-handler/applicationError.js";
-import connectToMongoDB from "./src/config/mongodb.js";
+import { connectToMongoDB } from "./src/config/mongodb.js";
 
 // 2. Create Server
 const server = express();

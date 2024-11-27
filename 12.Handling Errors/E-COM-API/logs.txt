@@ -15,3 +15,10 @@
 {"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"John Doe\",\"email\":\"madgulkar@gmail.com\",\"password\":\"pass\",\"type\":\"Customer\"}","service":"requet-logging"}
