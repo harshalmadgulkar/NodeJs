@@ -1,21 +1,35 @@
+import { ApplicationError } from "../../error-handler/applicationError.js";
 import ProductModel from "./product.model.js";
+import ProductRepository from "./product.repository.js";
 
 export default class ProductController {
-  getAllProducts(req, res) {
-    const products = ProductModel.getAll();
+  constructor() {
+    this.productRepository = new ProductRepository();
+  }
+
+  async getAllProducts(req, res) {
+    const products = await this.productRepository.getAll();
     res.status(200).send(products);
   }
 
-  addProduct(req, res) {
-    const { name, price, sizes } = req.body;
-    const newProduct = {
-      name,
-      price: parseFloat(price),
-      sizes: sizes.split(","),
-      imageUrl: req.file.filename,
-    };
-    const createdRecord = ProductModel.add(newProduct);
-    res.status(201).send(createdRecord);
+  async addProduct(req, res) {
+    try {
+      const { name, desc, price, category, sizes } = req.body;
+      const newProduct = new ProductModel(
+        name,
+        desc,
+        parseFloat(price),
+        req.file.filename,
+        category,
+        sizes.split(",")
+      );
+
+      const createdRecord = await this.productRepository.add(newProduct);
+      res.status(201).send(createdRecord);
+    } catch (err) {
+      console.log(err);
+      throw new ApplicationError("Something went wrong.", 500);
+    }
   }
 
   rateProduct(req, res, next) {
@@ -32,9 +46,9 @@ export default class ProductController {
     }
   }
 
-  getOneProduct(req, res) {
+  async getOneProduct(req, res) {
     const id = req.params.id;
-    const product = ProductModel.get(id);
+    const product = await this.productRepository.get(id);
     if (!product) {
       res.status(404).send("Product not found");
     } else {
