@@ -69,3 +69,44 @@
 {"level":"info","message":"/api/products - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/674d67586f0c46bf494c05c5 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/674d643bb7adf73a4693dc1c - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&minPrice=90000&category=Category%203 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&minPrice=90000&category=Category%203 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000&category=Category%203 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000&category=Category%203 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=45000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=20000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=40000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"code":500,"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"code":500,"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=1&userID=1&rating=5 - {}","service":"requet-logging"}
+{"code":500,"level":"info","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d643bb7adf73a4693dc1c&userID=674988d8840307c131d7178b&rating=5 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d643bb7adf73a4693dc1c&userID=674988d8840307c131d7178b&rating=4 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d643bb7adf73a4693dc1c&rating=4 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d643bb7adf73a4693dc1c&rating=4 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d643bb7adf73a4693dc1c&rating=3 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d64d46ba9fd95829872e8&rating=1 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate/?productID=674d64d46ba9fd95829872e8&rating=1 - {}","service":"requet-logging"}

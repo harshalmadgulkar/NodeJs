@@ -32,13 +32,12 @@ export default class ProductController {
     }
   }
 
-  rateProduct(req, res, next) {
+  async rateProduct(req, res, next) {
     try {
-      const userID = req.query.userID;
+      const userID = req.userID;
       const productID = req.query.productID;
-      const rating = req.query.ratingss;
-      console.log(rating);
-      ProductModel.rateProduct(userID, productID, rating);
+      const rating = req.query.rating;
+      await this.productRepository.rateProduct(userID, productID, rating);
       return res.status(200).send("Rating has been added");
     } catch (err) {
       console.log("Passing error to middleware");
@@ -56,11 +55,15 @@ export default class ProductController {
     }
   }
 
-  filterProducts(req, res) {
+  async filterProducts(req, res) {
     const minPrice = req.query.minPrice;
     const maxPrice = req.query.maxPrice;
     const category = req.query.category;
-    const result = ProductModel.filter(minPrice, maxPrice, category);
+    const result = await this.productRepository.filter(
+      minPrice,
+      maxPrice,
+      category
+    );
     res.status(200).send(result);
   }
 }
