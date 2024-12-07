@@ -10,12 +10,11 @@ export class CartItemsController {
   async add(req, res) {
     const { productID, quantity } = req.body;
     const userID = req.userID;
-    const cartItem = new CartItemModel(
-      new ObjectId(productID),
-      new ObjectId(userID),
+    const result = await this.cartItemsRepository.add(
+      productID,
+      userID,
       quantity
     );
-    const result = await this.cartItemsRepository.add(cartItem);
     res.status(201).send("Cart is updated");
   }
 

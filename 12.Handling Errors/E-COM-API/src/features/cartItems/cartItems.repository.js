@@ -7,15 +7,25 @@ export default class CartItemsRepository {
     this.collectionName = "cartItems";
   }
 
-  async add(cartItem) {
+  async add(productID, userID, quantity) {
     try {
       // 1. Get database
       const db = getDB();
       // 2. Get collection
       const collection = db.collection(this.collectionName);
-      // 3. Insert document
-      const result = await collection.insertOne(cartItem);
-      return cartItem;
+      // 3. Find document & Either inset or update
+      const result = await collection.updateOne(
+        // find
+        {
+          productID: new ObjectId(productID),
+          userID: new ObjectId(userID),
+        },
+        // create new if no match else update with given quantity
+        { $inc: { quantity: quantity } },
+        // allow to add new doc
+        { upsert: true }
+      );
+      return result;
     } catch (err) {
       console.log(err);
       throw new ApplicationError("Something went wrong with database.", 500);
