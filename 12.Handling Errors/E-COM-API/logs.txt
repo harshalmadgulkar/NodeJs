@@ -207,3 +207,11 @@
 {"level":"info","message":"/api/cartItems - {\"productID\":\"674d67586f0c46bf494c05c5\",\"quantity\":5}","service":"requet-logging"}
 {"level":"info","message":"/api/cartItems - {\"productID\":\"674d67586f0c46bf494c05c5\",\"quantity\":5}","service":"requet-logging"}
 {"level":"info","message":"/api/cartItems - {\"productID\":\"674d67586f0c46bf494c05c5\",\"quantity\":6}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d67586f0c46bf494c05c5\",\"quantity\":6}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d67586f0c46bf494c05c5\",\"quantity\":3}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d64d46ba9fd95829872e8\",\"quantity\":7}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d64d46ba9fd95829872e8\",\"quantity\":7}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d64d46ba9fd95829872e8\",\"quantity\":7}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d643bb7adf73a4693dc1c\",\"quantity\":6}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d643bb7adf73a4693dc1c\",\"quantity\":6}","service":"requet-logging"}
+{"level":"info","message":"/api/cartItems - {\"productID\":\"674d643bb7adf73a4693dc1c\",\"quantity\":6}","service":"requet-logging"}
