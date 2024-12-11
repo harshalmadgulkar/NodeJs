@@ -50,7 +50,7 @@ class ProductRepository {
     }
   }
 
-  async filter(minPrice, category) {
+  async filter(minPrice, categories) {
     try {
       // 1. Get database
       const db = getDB();
@@ -62,11 +62,16 @@ class ProductRepository {
         filterExpression.price = { $gte: parseFloat(minPrice) };
       }
       // console.log(filterExpression);
-      if (category) {
-        // 1. Ony  returns if one of the filters are applicable
-        filterExpression = { $or: [{ category: category }, filterExpression] };
-        // 2. Ony  returns if all filters are applicable
+      if (categories) {
+        categories = JSON.parse(categories.replace(/'/g, '"'));
+        // 3. Ony  returns if any of list of categories filters are applicable IN
+        filterExpression = {
+          $or: [{ category: { $in: categories } }, filterExpression],
+        };
+        // 2. Ony  returns if all filters are applicable AND
         // filterExpression = { $and: [{ category: category }, filterExpression] };
+        // 1. Ony  returns if one of the filters are applicable OR
+        // filterExpression = { $or: [{ category: category }, filterExpression] };
         // filterExpression.category = category;
       }
       // console.log(filterExpression);
