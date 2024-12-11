@@ -215,3 +215,17 @@
 {"level":"info","message":"/api/cartItems - {\"productID\":\"674d643bb7adf73a4693dc1c\",\"quantity\":6}","service":"requet-logging"}
 {"level":"info","message":"/api/cartItems - {\"productID\":\"674d643bb7adf73a4693dc1c\",\"quantity\":6}","service":"requet-logging"}
 {"level":"info","message":"/api/cartItems - {\"productID\":\"674d643bb7adf73a4693dc1c\",\"quantity\":6}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?minPrice=40000&maxPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Category%203&minPrice=40000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Imp%203&minPrice=40000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Imp%203&minPrice=40000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Imp%203&minPrice=40000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Imp&minPrice=40000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Imp&minPrice=40000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Imp&minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=category&minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Category&minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Category&minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?c=Category&minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=c&minPrice=50000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?category=Category&minPrice=90000 - {}","service":"requet-logging"}

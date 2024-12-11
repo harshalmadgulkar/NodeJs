@@ -50,27 +50,31 @@ class ProductRepository {
     }
   }
 
-  async filter(minPrice, maxPrice, category) {
-    // 1. Get database
-    const db = getDB();
-    // 2. Get the collection
-    const collection = db.collection(this.collection);
-    // 3. Find all products
-    let filterExpression = {};
-    if (minPrice) {
-      filterExpression.price = { $gte: parseFloat(minPrice) };
+  async filter(minPrice, category) {
+    try {
+      // 1. Get database
+      const db = getDB();
+      // 2. Get the collection
+      const collection = db.collection(this.collection);
+      // 3. Find all products
+      let filterExpression = {};
+      if (minPrice) {
+        filterExpression.price = { $gte: parseFloat(minPrice) };
+      }
+      // console.log(filterExpression);
+      if (category) {
+        // 1. Ony  returns if one of the filters are applicable
+        filterExpression = { $or: [{ category: category }, filterExpression] };
+        // 2. Ony  returns if all filters are applicable
+        // filterExpression = { $and: [{ category: category }, filterExpression] };
+        // filterExpression.category = category;
+      }
+      // console.log(filterExpression);
+      return await collection.find(filterExpression).toArray();
+    } catch (err) {
+      console.log(err);
+      throw new ApplicationError("Something went wrong with database.", 500);
     }
-    if (maxPrice) {
-      filterExpression.price = {
-        ...filterExpression,
-        $lte: parseFloat(maxPrice),
-      };
-    }
-    if (category) {
-      filterExpression.category = category;
-    }
-    console.log(filterExpression);
-    return await collection.find(filterExpression).toArray();
   }
 
   async rateProduct(userID, productID, rating) {
