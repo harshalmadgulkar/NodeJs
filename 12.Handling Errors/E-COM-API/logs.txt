@@ -234,3 +234,11 @@
 {"level":"info","message":"/api/products/filter?categories=[Category,Imp]&minPrice=90000 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/filter?categories=[%27Category%27,%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
 {"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}
+{"level":"info","message":"/api/products/rate - {\"productID\":\"674d64d46ba9fd95829872e8\",\"rating\":5.2}","service":"requet-logging"}
+{"level":"info","message":"/api/products/filter?categories=[%27Imp%27]&minPrice=90000 - {}","service":"requet-logging"}

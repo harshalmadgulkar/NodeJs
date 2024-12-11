@@ -75,7 +75,19 @@ class ProductRepository {
         // filterExpression.category = category;
       }
       // console.log(filterExpression);
-      return await collection.find(filterExpression).toArray();
+      return await collection
+        .find(filterExpression)
+        // to return _id,name and price
+        // .project({ name: 1, price: 1,ratings:1 })
+        // to exclude _id
+        // .project({ name: 1, price: 1, ratings: 1, _id: 0 })
+        // show first rating only
+        // .project({ name: 1, price: 1, ratings: { $slice: 1 }, _id: 0 })
+        // show last rating only
+        // .project({ name: 1, price: 1, ratings: { $slice: -1 }, _id: 0 })
+        // show last 2 rating only
+        .project({ name: 1, price: 1, ratings: { $slice: -2 }, _id: 0 })
+        .toArray();
     } catch (err) {
       console.log(err);
       throw new ApplicationError("Something went wrong with database.", 500);
