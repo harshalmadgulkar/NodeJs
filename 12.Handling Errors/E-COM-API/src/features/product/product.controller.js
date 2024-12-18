@@ -40,18 +40,23 @@ export default class ProductController {
       await this.productRepository.rateProduct(userID, productID, rating);
       return res.status(200).send("Rating has been added");
     } catch (err) {
-      console.log("Passing error to middleware");
-      next(err);
+      console.log(err);
+      throw new ApplicationError("Something went wrong.", 500);
     }
   }
 
   async getOneProduct(req, res) {
-    const id = req.params.id;
-    const product = await this.productRepository.get(id);
-    if (!product) {
-      res.status(404).send("Product not found");
-    } else {
-      return res.status(200).send(product);
+    try {
+      const id = req.params.id;
+      const product = await this.productRepository.get(id);
+      if (!product) {
+        res.status(404).send("Product not found");
+      } else {
+        return res.status(200).send(product);
+      }
+    } catch (err) {
+      // console.log(err);
+      throw new ApplicationError("Something went wrong.", 500);
     }
   }
 
@@ -61,5 +66,16 @@ export default class ProductController {
     const categories = req.query.categories;
     const result = await this.productRepository.filter(minPrice, categories);
     res.status(200).send(result);
+  }
+
+  async averagePrice(req, res, next) {
+    try {
+      const result =
+        await this.productRepository.averageProductPricePerCategory();
+      res.status(200).send(result);
+    } catch (err) {
+      console.log("Passing error to middleware");
+      next(err);
+    }
   }
 }

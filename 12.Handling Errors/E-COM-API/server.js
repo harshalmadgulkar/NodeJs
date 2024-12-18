@@ -45,12 +45,13 @@ server.get("/", (req, res) => {
 
 // Error handler middleware
 server.use((err, req, res, next) => {
-  console.log(err);
   if (err instanceof ApplicationError) {
+    console.log("in instanceof");
     res.status(err.code).send(err.message);
+  } else {
+    logger.info(err);
+    res.status(500).send("Something went wrong, please try later");
   }
-  logger.info(err);
-  res.status(500).send("Something went wrong, please try later");
 });
 
 // 4. Middleware to handle 404 requests.

@@ -115,6 +115,27 @@ class ProductRepository {
       throw new ApplicationError("Something went wrong with database.", 500);
     }
   }
+
+  async averageProductPricePerCategory() {
+    try {
+      const db = getDB();
+      return await db
+        .collection(this.collection)
+        .aggregate([
+          {
+            // 1. Get Avaerage price for each category
+            $group: {
+              _id: "$category",
+              averagePrice: { $avg: "$price" },
+            },
+          },
+        ])
+        .toArray();
+    } catch (err) {
+      console.log("Passing error to middleware");
+      next(err);
+    }
+  }
 }
 
 export default ProductRepository;
