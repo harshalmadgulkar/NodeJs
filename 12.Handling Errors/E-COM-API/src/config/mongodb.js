@@ -37,3 +37,7 @@ const createIndexes = async (db) => {
     console.log(err);
   }
 };
+
+export const getClient = () => {
+  return client;
+};

@@ -3,7 +3,9 @@ import "./env.js";
 import express from "express";
 import swagger from "swagger-ui-express";
 import cors from "cors";
+import dotenv from "dotenv";
 
+import orderRouter from './src/features/order/order.routes.js';
 import productRouter from "./src/features/product/product.routes.js";
 import userRouter from "./src/features/user/user.routes.js";
 import jwtAuth from "./src/middlewares/jwt.middleware.js";
@@ -17,6 +19,9 @@ import { connectToMongoDB } from "./src/config/mongodb.js";
 
 // 2. Create Server
 const server = express();
+
+// load all the environment variables in application
+dotenv.config();
 
 // CORS policy configuration
 
@@ -34,6 +39,7 @@ server.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
 // loggerMiddleware
 server.use(loggerMiddleware);
 
+server.use('/api/orders', jwtAuth, orderRouter);
 server.use("/api/products", jwtAuth, productRouter);
 server.use("/api/cartItems", jwtAuth, cartRouter);
 server.use("/api/users", userRouter);
@@ -50,8 +56,8 @@ server.use((err, req, res, next) => {
     res.status(err.code).send(err.message);
   } else {
     logger.info(err);
-    res.status(500).send("Something went wrong, please try later");
   }
+  res.status(500).send("Something went wrong, please try later");
 });
 
 // 4. Middleware to handle 404 requests.
