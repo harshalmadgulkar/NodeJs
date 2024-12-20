@@ -1,11 +1,11 @@
+// imported dotenv & config from this file
 import "./env.js";
 // 1. Import Exprerss
 import express from "express";
 import swagger from "swagger-ui-express";
 import cors from "cors";
-import dotenv from "dotenv";
 
-import orderRouter from './src/features/order/order.routes.js';
+import orderRouter from "./src/features/order/order.routes.js";
 import productRouter from "./src/features/product/product.routes.js";
 import userRouter from "./src/features/user/user.routes.js";
 import jwtAuth from "./src/middlewares/jwt.middleware.js";
@@ -16,12 +16,10 @@ import loggerMiddleware, {
 } from "./src/middlewares/logger.middleware.js";
 import { ApplicationError } from "./src/error-handler/applicationError.js";
 import { connectToMongoDB } from "./src/config/mongodb.js";
+import { connectUsingMongoose } from "./src/config/mongooseConfig.js";
 
 // 2. Create Server
 const server = express();
-
-// load all the environment variables in application
-dotenv.config();
 
 // CORS policy configuration
 
@@ -39,7 +37,7 @@ server.use("/api-docs", swagger.serve, swagger.setup(apiDocs));
 // loggerMiddleware
 server.use(loggerMiddleware);
 
-server.use('/api/orders', jwtAuth, orderRouter);
+server.use("/api/orders", jwtAuth, orderRouter);
 server.use("/api/products", jwtAuth, productRouter);
 server.use("/api/cartItems", jwtAuth, cartRouter);
 server.use("/api/users", userRouter);
@@ -72,5 +70,6 @@ server.use((req, res) => {
 // 5. Specify port.
 server.listen(3200, () => {
   console.log("Server is running at 3200");
-  connectToMongoDB();
+  // connectToMongoDB();
+  connectUsingMongoose();
 });
