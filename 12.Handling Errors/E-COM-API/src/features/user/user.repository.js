@@ -8,6 +8,21 @@ import { getDB } from "../../config/mongodb.js";
 const userModel = mongoose.model("User", userSchema);
 
 export default class UserRepository {
+  async resetPassword(userID, hashedNewPassword) {
+    try {
+      let user = await userModel.findById(userID);
+      if (!user) {
+        throw new Error("No such user found!");
+      } else {
+        user.password = hashedNewPassword;
+        user.save();
+      }
+    } catch (err) {
+      console.log(err);
+      throw new ApplicationError("Something went wrong with database.", 500);
+    }
+  }
+
   async signUp(user) {
     try {
       // create instance of Model

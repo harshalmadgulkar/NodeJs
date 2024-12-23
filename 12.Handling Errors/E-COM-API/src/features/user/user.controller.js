@@ -9,7 +9,21 @@ export default class UserController {
     this.userRepository = new UserRepository();
   }
 
-  async signUp(req, res) {
+  async resetPassword(req, res, next) {
+    const { newPassword } = req.body;
+    const hashedNewPassword = await bcrypt.hash(newPassword, 12);
+    const userID = req.userID;
+    try {
+      await this.userRepository.resetPassword(userID, hashedNewPassword);
+      res.status(200).send("Password is updated");
+    } catch (err) {
+      console.log(err);
+      console.log("passing error to middleware");
+      next(err);
+    }
+  }
+
+  async signUp(req, res, next) {
     try {
       const { name, email, password, type } = req.body;
       const hashedPassword = await bcrypt.hash(password, 12);
@@ -18,11 +32,12 @@ export default class UserController {
       res.status(201).send(user);
     } catch (err) {
       console.log(err);
-      throw new ApplicationError("Something went wrong", 500);
+      console.log("passing error to middleware");
+      next(err);
     }
   }
 
-  async signIn(req, res) {
+  async signIn(req, res, next) {
     try {
       // 1. Find user by email
       const user = await this.userRepository.findByEmail(req.body.email);
@@ -51,7 +66,8 @@ export default class UserController {
       }
     } catch (err) {
       console.log(err);
-      throw new ApplicationError("Something went wrong", 500);
+      console.log("passing error to middleware");
+      next(err);
     }
   }
 }
