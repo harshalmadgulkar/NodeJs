@@ -37,3 +37,14 @@
 {"level":"info","message":"/api/users/resetPassword - {\"newPassword\":\"ryan@1234\"}","service":"requet-logging"}
 {"level":"info","message":"/api/users/resetPassword - {\"newPassword\":\"ryan@1234\"}","service":"requet-logging"}
 {"level":"info","message":"/api/users/resetPassword - {\"newPassword\":\"ryan@123\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenolds@gmail.com\",\"password\":\"ryan@123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenolds@gmail.com\",\"password\":\"rya123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenolds2@gmail.com\",\"password\":\"rya123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenolds2gmail.com\",\"password\":\"rya123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenolds2@gmail.com\",\"password\":\"ya123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenolds2@gmail.com\",\"password\":\"ya123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenold2s@gmail.com\",\"password\":\"ryan@123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenold2s@gmail.com\",\"password\":\"Ryan@123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenold2s@gmail.com\",\"password\":\"Ryan@123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenold2s@gmail.com\",\"password\":\"Ryan@123\",\"type\":\"Seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds2\",\"email\":\"ryanrenold2s@gmail.com\",\"password\":\"\",\"type\":\"Seller\"}","service":"requet-logging"}
