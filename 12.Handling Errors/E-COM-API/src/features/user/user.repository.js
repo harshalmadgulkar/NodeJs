@@ -1,19 +1,18 @@
-import { getDB } from "../../config/mongodb.js";
+import mongoose from "mongoose";
+import { userSchema } from "./user.schema.js";
 import { ApplicationError } from "../../error-handler/applicationError.js";
+import UserModel from "./user.model.js";
+import { getDB } from "../../config/mongodb.js";
 
-class UserRepository {
-  constructor() {
-    this.collection = "users";
-  }
+// create model from schema
+const userModel = mongoose.model("User", userSchema);
 
-  async signUp(newUser) {
+export default class UserRepository {
+  async signUp(user) {
     try {
-      // 1. Get database
-      const db = getDB();
-      // 2. Get the collection
-      const collection = db.collection(this.collection);
-      // 3. Insert document
-      await collection.insertOne(newUser);
+      // create instance of Model
+      const newUser = new userModel(user);
+      await newUser.save();
       return newUser;
     } catch (err) {
       console.log(err);
@@ -23,30 +22,19 @@ class UserRepository {
 
   async signIn(email, password) {
     try {
-      // 1. Get database
-      const db = getDB();
-      // 2. Get the collection
-      const collection = db.collection("users");
-      // 3. Find document
-      return await collection.findOne({ email, password });
+      return await UserModel.findOne({ email, password });
     } catch (err) {
       console.log(err);
-      throw new ApplicationError("Something went wrong", 500);
+      throw new ApplicationError("Something went wrong with database.", 500);
     }
   }
 
   async findByEmail(email) {
     try {
-      // 1. Get database
-      const db = getDB();
-      // 2. Get the collection
-      const collection = db.collection("users");
-      // 3. Find document
-      return await collection.findOne({ email });
+      return await userModel.findOne({ email });
     } catch (err) {
       console.log(err);
-      throw new ApplicationError("Something went wrong", 500);
+      throw new ApplicationError("Something went wrong with database.", 500);
     }
   }
 }
-export default UserRepository;

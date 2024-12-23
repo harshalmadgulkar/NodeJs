@@ -19,3 +19,5 @@
 {"level":"info","message":"/api/orders/ - {}","service":"requet-logging"}
 {"level":"info","message":"/api/orders/ - {}","service":"requet-logging"}
 {"level":"info","message":"/api/orders/ - {}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds\",\"email\":\"ryanrenolds@gmail.com\",\"password\":\"ryan@123\",\"type\":\"seller\"}","service":"requet-logging"}
+{"level":"info","message":"/api/users/signup - {\"name\":\"Ryan Renolds\",\"email\":\"ryanrenolds@gmail.com\",\"password\":\"ryan@123\",\"type\":\"Seller\"}","service":"requet-logging"}

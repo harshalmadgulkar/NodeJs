@@ -13,20 +13,3 @@ export default class UserModel {
   //   return users;
   // }
 }
-
-// var users = [
-//   {
-//     id: 1,
-//     name: "Seller User",
-//     email: "seller@ecom.com",
-//     password: "Password1",
-//     type: "seller",
-//   },
-//   {
-//     id: 2,
-//     name: "Customer User",
-//     email: "customer@ecom.com",
-//     password: "Password1",
-//     type: "customer",
-//   },
-// ];
