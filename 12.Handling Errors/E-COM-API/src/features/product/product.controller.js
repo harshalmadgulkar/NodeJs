@@ -1,6 +1,9 @@
+import mongoose from "mongoose";
 import { ApplicationError } from "../../error-handler/applicationError.js";
-import ProductModel from "./product.model.js";
 import ProductRepository from "./product.repository.js";
+import { productSchema } from "./product.schema.js";
+
+const ProductModel = mongoose.model("Product", productSchema);
 
 export default class ProductController {
   constructor() {
@@ -8,22 +11,28 @@ export default class ProductController {
   }
 
   async getAllProducts(req, res) {
-    const products = await this.productRepository.getAll();
-    res.status(200).send(products);
+    try {
+      const products = await this.productRepository.getAll();
+      res.status(200).send(products);
+    } catch (err) {
+      console.log(err);
+      return res.status(200).send("Something went wrong");
+    }
   }
 
   async addProduct(req, res) {
     try {
-      const { name, desc, price, category, sizes } = req.body;
-      const newProduct = new ProductModel(
-        name,
-        desc,
-        parseFloat(price),
-        req.file.filename,
-        category,
-        sizes.split(",")
-      );
+      const { name, desc, price, categories, sizes } = req.body;
 
+      const newProductData = {
+        name: name,
+        description: desc,
+        price: parseFloat(price),
+        imageUrl: req.file.filename,
+        categories: categories.split(",").map((i) => i.trim()),
+        sizes: sizes.split(","),
+      };
+      const newProduct = new ProductModel(newProductData);
       const createdRecord = await this.productRepository.add(newProduct);
       res.status(201).send(createdRecord);
     } catch (err) {
@@ -41,7 +50,8 @@ export default class ProductController {
       return res.status(200).send("Rating has been added");
     } catch (err) {
       console.log(err);
-      throw new ApplicationError("Something went wrong.", 500);
+      console.log("Passing error to middleware");
+      next(err);
     }
   }
 
@@ -55,8 +65,8 @@ export default class ProductController {
         return res.status(200).send(product);
       }
     } catch (err) {
-      // console.log(err);
-      throw new ApplicationError("Something went wrong.", 500);
+      console.log(err);
+      console.log("Passing error to middleware");
     }
   }
 

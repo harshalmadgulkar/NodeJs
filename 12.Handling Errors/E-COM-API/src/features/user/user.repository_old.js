@@ -3,7 +3,7 @@ import { ApplicationError } from "../../error-handler/applicationError.js";
 
 class UserRepository {
   constructor() {
-    this.collection = "users";
+    this.collectionName = "users";
   }
 
   async signUp(newUser) {
@@ -11,7 +11,7 @@ class UserRepository {
       // 1. Get database
       const db = getDB();
       // 2. Get the collection
-      const collection = db.collection(this.collection);
+      const collection = db.collection(this.collectionName);
       // 3. Insert document
       await collection.insertOne(newUser);
       return newUser;
@@ -26,7 +26,7 @@ class UserRepository {
       // 1. Get database
       const db = getDB();
       // 2. Get the collection
-      const collection = db.collection("users");
+      const collection = db.collection(this.collectionName);
       // 3. Find document
       return await collection.findOne({ email, password });
     } catch (err) {
@@ -40,7 +40,7 @@ class UserRepository {
       // 1. Get database
       const db = getDB();
       // 2. Get the collection
-      const collection = db.collection("users");
+      const collection = db.collection(this.collectionName);
       // 3. Find document
       return await collection.findOne({ email });
     } catch (err) {

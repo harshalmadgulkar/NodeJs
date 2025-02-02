@@ -1,5 +1,4 @@
-import { ApplicationError } from "../../error-handler/applicationError.js";
-import UserModel from "../user/user.model.js";
+// Ready to remove
 
 export default class ProductModel {
   constructor(name, desc, price, imageUrl, category, sizes) {

@@ -1,6 +1,9 @@
-import { ObjectId } from "mongodb";
-import { getDB } from "../../config/mongodb.js";
+import mongoose from "mongoose";
+
 import { ApplicationError } from "../../error-handler/applicationError.js";
+import { cartItemsSchema } from "./cartItems.schema.js";
+
+const CartItemModel = mongoose.model("cartitem", cartItemsSchema);
 
 export default class CartItemsRepository {
   constructor() {
@@ -9,58 +12,34 @@ export default class CartItemsRepository {
 
   async add(productID, userID, quantity) {
     try {
-      // 1. Get database
-      const db = getDB();
-      // 2. Get collection
-      const collection = db.collection(this.collectionName);
-      // get id
-      // const id = await this.getNextCounter(db);
-      // 3. Find document & Either inset or update
-      const result = await collection.updateOne(
-        // find
-        {
-          productID: new ObjectId(productID),
-          userID: new ObjectId(userID),
-        },
-        // create new if no match else update with given quantity
-        {
-          // $setOnInsert: { _id: id },
-          $inc: { quantity: quantity },
-        },
-        // allow to add new doc
-        { upsert: true }
+      // 1. Adding cart Item
+      const savedCartItem = await CartItemModel.findOneAndUpdate(
+        { userId: userID, productId: productID },
+        { $inc: { quantity } }, // Increment quantity if exists
+        { new: true, upsert: true } // Create if not exists
       );
-      return result;
+      return savedCartItem;
     } catch (err) {
-      console.log(err);
-      throw new ApplicationError("Something went wrong with database.", 500);
+      console.log("Error updating cart:", err);
+      throw new ApplicationError("Could not update cart.", 500);
     }
   }
 
   async get(userID) {
     try {
-      // 1. Get database
-      const db = getDB();
-      // 2. Get collection
-      const collection = db.collection(this.collectionName);
-      // 3. Get all data in Array
-      return await collection.find({ userID: new ObjectId(userID) }).toArray();
+      return await CartItemModel.find({ userId: userID });
     } catch (err) {
       console.log(err);
       throw new ApplicationError("Something went wrong with database.", 500);
     }
   }
 
-  async delete(cartItemId, userID) {
+  async delete(cartItemID, userID) {
     try {
-      // 1.Get database
-      const db = getDB();
-      // 2. Get collection
-      const collection = db.collection(this.collectionName);
       // 3. Delete one documents
-      const result = await collection.deleteOne({
-        _id: new ObjectId(cartItemId),
-        userID: new ObjectId(userID),
+      const result = await CartItemModel.deleteOne({
+        _id: cartItemID,
+        userId: userID,
       });
       return result.deletedCount > 0;
     } catch (err) {
@@ -68,17 +47,4 @@ export default class CartItemsRepository {
       throw new ApplicationError("Something went wrong with database.", 500);
     }
   }
-
-  // async getNextCounter(db) {
-  //   const resultDocument = await db.collection("counters").findOneAndUpdate(
-  //     // query
-  //     { _id: "cartItemId" },
-  //     // update
-  //     { $inc: { value: 1 } },
-  //     // options returnNewDocument: true will return updated document
-  //     { returnNewDocument: true }
-  //   );
-  //   // console.log(resultDocument.value);
-  //   return resultDocument.value;
-  // }
 }

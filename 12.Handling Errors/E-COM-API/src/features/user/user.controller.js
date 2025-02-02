@@ -1,5 +1,3 @@
-import { ApplicationError } from "../../error-handler/applicationError.js";
-import UserModel from "./user.model.js";
 import jwt from "jsonwebtoken";
 import UserRepository from "./user.repository.js";
 import bcrypt from "bcrypt";
@@ -24,11 +22,16 @@ export default class UserController {
   }
 
   async signUp(req, res, next) {
+    const { name, email, password, type } = req.body;
     try {
-      const { name, email, password, type } = req.body;
       const hashedPassword = await bcrypt.hash(password, 12);
-      const user = new UserModel(name, email, hashedPassword, type);
-      await this.userRepository.signUp(user);
+      // const user = new UserModel(name, email, hashedPassword, type);
+      const user = await this.userRepository.signUp({
+        name,
+        email,
+        hashedPassword,
+        type,
+      });
       res.status(201).send(user);
     } catch (err) {
       console.log(err);

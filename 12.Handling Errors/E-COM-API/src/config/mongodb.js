@@ -1,5 +1,3 @@
-import { MongoClient } from "mongodb";
-
 let client;
 
 export const connectToMongoDB = () => {

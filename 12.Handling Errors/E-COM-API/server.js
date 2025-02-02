@@ -57,9 +57,8 @@ server.use((err, req, res, next) => {
   if (err instanceof ApplicationError) {
     console.log("in instanceof");
     res.status(err.code).send(err.message);
-  } else {
-    logger.info(err);
   }
+  // server errors.
   res.status(500).send("Something went wrong, please try later");
 });
 
