@@ -6,10 +6,27 @@
     <title>Chat App</title>
   </head>
   <body>
+    <div class="chat-container">
+      <div class="message-list"></div>
+      <input type="text" id="message-input" />
+      <button id="send-message">Send</button>
+    </div>
+
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     <script>
       // socket code in js
       const socket = io.connect("http://localhost:3000");
+      // Get element
+      const messageInput = document.getElementById("message-input");
+      const messageList = document.getElementsById("message-list");
+      const sendButton = document.getElementById("send-message");
+
+      sendButton.addEventListener("click", function () {
+        const message = messageInput.value;
+        if (message) {
+          socket.emit("new_message", message);
+        }
+      });
     </script>
   </body>
 </html>
