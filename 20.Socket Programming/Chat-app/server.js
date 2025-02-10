@@ -19,9 +19,16 @@ const io = new Server(server, {
 // 3. Use socket events.
 io.on("connection", (socket) => {
   console.log("Connection is established");
+
+  // Store user emmited by client
+  socket.on("join", (data) => {
+    socket.username = data;
+  });
+
   socket.on("new_message", (message) => {
     // broadcast this message to all the clients.
-    socket.broadcast.emit("broadcast_message", message);
+    let usermessage = { username: socket.username, message };
+    socket.broadcast.emit("broadcast_message", usermessage);
   });
 
   socket.on("disconnect", () => {
