@@ -19,14 +19,26 @@ const io = new Server(server, {
 });
 
 // 3. Use socket events.
-
 io.on('connection', (socket) => {
   console.log('Connection is established');
 
+  // join event
   socket.on('join', (data) => {
     socket.username = data;
+    // Send all previous messages
+    chatModel
+      .find()
+      .sort({ timestamp: 1 })
+      .limit(10)
+      .then((messages) => {
+        socket.emit('load_messages', messages);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
+  // new message event
   socket.on('new_message', (message) => {
     let userMessage = {
       username: socket.username,

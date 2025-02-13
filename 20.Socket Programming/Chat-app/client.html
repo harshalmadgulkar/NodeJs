@@ -34,15 +34,27 @@
         const message = messageInput.value;
         if (message) {
           socket.emit('new_message', message); // Emitting the message to the server
-
           // add message to the list
           const messageElement = document.createElement('div');
           messageElement.innerText = username + ': ' + message;
           messageList.appendChild(messageElement);
-
           //  Reset the value of textbox to empty
           messageInput.value = '';
         }
+      });
+
+      // Display previous messages
+      socket.on('load_messages', (messages) => {
+        messages.forEach((message) => {
+          const messageElement = document.createElement('div');
+          messageElement.innerText =
+            new Date(message.timestamp).toDateString() +
+            '--' +
+            message.username +
+            ': ' +
+            message.message;
+          messageList.appendChild(messageElement);
+        });
       });
 
       // Listen for broadcast message, and add it to the list.
