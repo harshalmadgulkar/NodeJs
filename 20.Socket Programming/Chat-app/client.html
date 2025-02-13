@@ -19,39 +19,37 @@
 
     <script>
       // socket code in js.
-      const socket = io.connect("http://localhost:3000");
-      const username = prompt("Enter your name");
-      // Emit username to server
-      socket.emit("join", username);
+      const socket = io.connect('http://localhost:3000');
+      const username = prompt('Enter your name');
+      // emit the username to the server
+      socket.emit('join', username);
 
       // get the elements
-      const messageInput = document.getElementById("message-input");
-      const messageList = document.getElementById("message-list");
-      const sendButton = document.getElementById("send-message");
+      const messageInput = document.getElementById('message-input');
+      const messageList = document.getElementById('message-list');
+      const sendButton = document.getElementById('send-message');
 
-      sendButton.addEventListener("click", function () {
+      sendButton.addEventListener('click', function () {
         // read the message from input and send to server.
         const message = messageInput.value;
-
         if (message) {
-          // Emitting the message to the server
-          socket.emit("new_message", message);
+          socket.emit('new_message', message); // Emitting the message to the server
 
           // add message to the list
-          const messageElement = document.createElement("div");
-          messageElement.innerText = username + ": " + message;
+          const messageElement = document.createElement('div');
+          messageElement.innerText = username + ': ' + message;
           messageList.appendChild(messageElement);
+
           //  Reset the value of textbox to empty
-          messageInput.value = "";
+          messageInput.value = '';
         }
       });
 
       // Listen for broadcast message, and add it to the list.
-      socket.on("broadcast_message", (usermessage) => {
-        console.log(usermessage);
-        const messageElement = document.createElement("div");
+      socket.on('broadcast_message', (userMessage) => {
+        const messageElement = document.createElement('div');
         messageElement.innerText =
-          usermessage.username + ": " + usermessage.message;
+          userMessage.username + ': ' + userMessage.message;
         messageList.appendChild(messageElement);
       });
     </script>
