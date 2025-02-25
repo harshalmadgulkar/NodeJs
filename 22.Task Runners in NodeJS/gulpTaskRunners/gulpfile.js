@@ -1,5 +1,9 @@
 import gulp from 'gulp';
+import imagemin from 'gulp-imagemin';
 
-gulp.task('imagemin', () => {
-  // Define the task
-});
+export default () => {
+  return gulp
+    .src('src/images/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('dest/images'));
+};
